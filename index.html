@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小精灵成长记</title>
+    <!-- 添加主题颜色，使浏览器地址栏与游戏主题匹配 -->
+    <meta name="theme-color" content="#FF69B4" />
     <style>
         /* 引入可爱风格的字体 */
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
@@ -929,7 +931,7 @@
                     <img src="${reward.img}" alt="${reward.name}">
                     <h4>${reward.name}</h4>
                     <p>成本: ${reward.cost} 🍀</p>
-                    reward-key="${key}" ${!isUnlocked || !hasEnoughPoints ? 'disabled' : ''}>
+                    <button class="buy-btn" data-reward-key="${key}" ${!isUnlocked || !hasEnoughPoints ? 'disabled' : ''}>
                         ${isUnlocked ? '兑换' : '待解锁'}
                     </button>
                 `;
