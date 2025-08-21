@@ -1,713 +1,757 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>小精灵成长记</title>
-  <style>
-    /* 引入可爱风格的字体 */
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小精灵成长记</title>
+    <style>
+        /* 引入可爱风格的字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
-    :root {
-      --primary-color: #FFC0CB; /* 粉色 */
-      --secondary-color: #A3D8FF; /* 浅蓝 */
-      --background-color: #F8F9FA; /* 浅灰色 */
-      --text-color: #333;
-      --card-bg: #FFFFFF;
-      --border-radius-large: 20px;
-      --border-radius-small: 12px;
-      --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
-      --shadow-heavy: 0 8px 20px rgba(0, 0, 0, 0.2);
-      --active-tab-color: #FF69B4;
-      --inactive-tab-color: #B0E0E6;
-    }
+        :root {
+            --primary-color: #FFC0CB; /* 粉色 */
+            --secondary-color: #A3D8FF; /* 浅蓝 */
+            --background-color: #F8F9FA; /* 浅灰色 */
+            --text-color: #333;
+            --card-bg: #FFFFFF;
+            --border-radius-large: 20px;
+            --border-radius-small: 12px;
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --active-tab-color: #FF69B4;
+            --inactive-tab-color: #B0E0E6;
+        }
 
-    body {
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-      color: var(--text-color);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      position: relative;
-    }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 800px;
-      background-color: var(--card-bg);
-      border-radius: var(--border-radius-large);
-      box-shadow: var(--shadow-heavy);
-      padding: 2rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      overflow: hidden;
-    }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-heavy);
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow: hidden;
+        }
 
-    h1 {
-      color: #FF69B4;
-      margin: 0;
-      font-size: 2.5rem;
-      font-weight: 700;
-    }
+        h1 {
+            color: #FF69B4;
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
 
-    p {
-      color: #666;
-      line-height: 1.6;
-      margin: 0;
-    }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
 
-    /* 按钮通用样式 */
-    .btn {
-      padding: 12px 24px;
-      border-radius: var(--border-radius-small);
-      font-size: 1rem;
-      font-weight: bold;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-      border: none;
-      box-shadow: var(--shadow-light);
-      display: inline-block;
-      white-space: nowrap;
-    }
+        /* 按钮通用样式 */
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--border-radius-small);
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            border: none;
+            box-shadow: var(--shadow-light);
+            display: inline-block;
+            white-space: nowrap;
+        }
 
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
 
-    .btn-primary {
-      background-color: #FF69B4;
-      color: white;
-    }
+        .btn-primary {
+            background-color: #FF69B4;
+            color: white;
+        }
 
-    .btn-primary:active {
-      transform: translateY(1px);
-    }
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
 
-    .btn-secondary {
-      background-color: #B0E0E6;
-      color: var(--text-color);
-    }
+        .btn-secondary {
+            background-color: #B0E0E6;
+            color: var(--text-color);
+        }
 
-    /* 游戏屏幕布局 */
-    .points-display {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 10px;
-      background-color: #FFF0F5;
-      padding: 10px 20px;
-      border-radius: var(--border-radius-large);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
-    }
+        /* 游戏屏幕布局 */
+        .points-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            background-color: #FFF0F5;
+            padding: 10px 20px;
+            border-radius: var(--border-radius-large);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .total-points, .daily-points {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FF69B4;
+        }
 
-    .total-points, .daily-points {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #FF69B4;
-    }
+        .total-points span, .daily-points span {
+            font-size: 2rem;
+        }
+        .points-display p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: #666;
+        }
 
-    .total-points span, .daily-points span {
-      font-size: 2rem;
-    }
-    .points-display p {
-      font-size: 0.9rem;
-      margin: 0;
-      color: #666;
-    }
+        .fairy-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .fairy-container .fairy-text {
+            color: #555;
+            font-weight: bold;
+        }
 
-    .fairy-container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    .fairy-container .fairy-text {
-      color: #555;
-      font-weight: bold;
-    }
+        /* 精灵图标和成长进度条 */
+        .fairy-icon {
+            font-size: 5rem;
+            transition: transform 0.5s ease-in-out;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
 
-    /* 精灵图标和成长进度条 */
-    .fairy-icon {
-      font-size: 5rem;
-      transition: transform 0.5s ease-in-out;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+        .progress-bar-container {
+            width: 100%;
+            height: 15px;
+            background-color: #EFEFEF;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-    .progress-bar-container {
-      width: 100%;
-      height: 15px;
-      background-color: #EFEFEF;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+        .progress-bar {
+            height: 100%;
+            background-color: #98FB98;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        /* 扣分项目区：添加可折叠和展开的样式 */
+        .deduction-section {
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: var(--border-radius-small);
+            box-shadow: var(--shadow-light);
+            transition: max-height 0.3s ease-in-out;
+            max-height: 120px; /* 默认收起状态的高度 */
+            overflow: hidden;
+            position: relative;
+            margin: 2rem 0;
+        }
 
-    .progress-bar {
-      height: 100%;
-      background-color: #98FB98;
-      border-radius: 10px;
-      transition: width 0.5s ease-in-out;
-    }
+        .deduction-section.expanded {
+            max-height: 500px; /* 展开后的高度，确保能显示所有内容 */
+        }
 
-    .deduction-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-      background-color: #fff;
-      padding: 1rem;
-      border-radius: var(--border-radius-small);
-      box-shadow: var(--shadow-light);
-    }
-    .deduction-section p {
-      margin: 0;
-      font-weight: bold;
-      color: #888;
-    }
+        .deduction-items-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
 
-    .deduction-btn {
-      background-color: #FF6347;
-      color: white;
-      padding: 10px 20px;
-      border-radius: var(--border-radius-small);
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: var(--shadow-light);
-    }
-    .deduction-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    }
+        .deduction-section p {
+            margin: 0 0 1rem 0;
+            font-weight: bold;
+            color: #888;
+        }
 
-    /* 新增的标签切换样式 */
-    .tab-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 1rem;
-    }
-    .tab-button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: var(--border-radius-small);
-      background-color: var(--inactive-tab-color);
-      color: var(--text-color);
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-    .tab-button.active {
-      background-color: var(--active-tab-color);
-      color: white;
-      box-shadow: 4px 8px rgba(0, 0, 0, 0.2);
-      transform: translateY(-2px);
-    }
-    .tab-button:hover:not(.active) {
-      background-color: #C0E8F0;
-    }
+        .deduction-btn {
+            background-color: #FF6347;
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--border-radius-small);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: var(--shadow-light);
+        }
+        .deduction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 展开/收起按钮样式 */
+        .toggle-btn {
+            width: 100%;
+            margin-top: 1rem;
+            background-color: var(--inactive-tab-color);
+            color: var(--text-color);
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius-small);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .toggle-btn:hover {
+            background-color: #C0E8F0;
+        }
+        
+        /* 新增的标签切换样式 */
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius-small);
+            background-color: var(--inactive-tab-color);
+            color: var(--text-color);
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .tab-button.active {
+            background-color: var(--active-tab-color);
+            color: white;
+            box-shadow: 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        .tab-button:hover:not(.active) {
+            background-color: #C0E8F0;
+        }
 
-    .tab-content {
-      display: none;
-      padding-top: 1rem;
-    }
-    .tab-content.active {
-      display: block;
-    }
+        .tab-content {
+            display: none;
+            padding-top: 1rem;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        .task-card, .reward-section {
+            background-color: var(--background-color);
+            border-radius: var(--border-radius-small);
+            padding: 15px;
+            box-shadow: var(--shadow-light);
+            text-align: left;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .task-card h3 {
+            margin-top: 0;
+            color: #FF69B4;
+            font-size: 1.2rem;
+        }
+        
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        .task-item:hover {
+            background-color: #FDFDFD;
+        }
+        .task-item.completed {
+            text-decoration: line-through;
+            color: #aaa;
+        }
 
-    .task-card, .reward-section {
-      background-color: var(--background-color);
-      border-radius: var(--border-radius-small);
-      padding: 15px;
-      box-shadow: var(--shadow-light);
-      text-align: left;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+        .task-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .task-card h3 {
-      margin-top: 0;
-      color: #FF69B4;
-      font-size: 1.2rem;
-    }
+        .task-points {
+            font-weight: bold;
+            color: #888;
+        }
 
-    .task-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .task-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .task-item:last-child {
-      border-bottom: none;
-    }
-    .task-item:hover {
-      background-color: #FDFDFD;
-    }
-    .task-item.completed {
-      text-decoration: line-through;
-      color: #aaa;
-    }
+        .rewards-section {
+            text-align: center;
+        }
+        .rewards-section h2 {
+            margin-top: 0;
+            color: #FF69B4;
+        }
+        
+        .reward-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            margin-top: 1rem;
+        }
 
-    .task-name {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .reward-card {
+            padding: 10px;
+            text-align: center;
+            background-color: #F8F9FA;
+            box-shadow: var(--shadow-light);
+            border-radius: var(--border-radius-small);
+        }
+        .reward-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius-small);
+            margin-bottom: 10px;
+        }
+        .reward-card h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .reward-card p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .buy-btn {
+            background-color: #98FB98;
+            color: #333;
+            padding: 8px 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: var(--border-radius-small);
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .buy-btn:hover {
+            background-color: #7ADF7A;
+        }
+        .buy-btn.disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+            color: #aaa;
+        }
 
-    .task-points {
-      font-weight: bold;
-      color: #888;
-    }
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .fairy-icon {
+                font-size: 4rem;
+            }
+        }
+        
+        /* 新增：烟花效果的CSS */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* 禁用鼠标事件，不影响下方内容点击 */
+            z-index: 1000;
+        }
 
-    .rewards-section {
-      text-align: center;
-    }
-    .rewards-section h2 {
-      margin-top: 0;
-      color: #FF69B4;
-    }
+        .firework-particle {
+            position: absolute;
+            font-size: 2rem;
+            animation: explode 0.8s forwards;
+            opacity: 0;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        }
 
-    .reward-grid {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      margin-top: 1rem;
-    }
-
-    .reward-card {
-      padding: 10px;
-      text-align: center;
-      background-color: #F8F9FA;
-      box-shadow: var(--shadow-light);
-      border-radius: var(--border-radius-small);
-    }
-    .reward-card img {
-      max-width: 100%;
-      height: auto;
-      border-radius: var(--border-radius-small);
-      margin-bottom: 10px;
-    }
-    .reward-card h4 {
-      margin: 0;
-      font-size: 1rem;
-      color: #333;
-    }
-    .reward-card p {
-      margin: 5px 0 0;
-      font-size: 0.9rem;
-      color: #888;
-    }
-    .buy-btn {
-      background-color: #98FB98;
-      color: #333;
-      padding: 8px 16px;
-      margin-top: 10px;
-      border: none;
-      border-radius: var(--border-radius-small);
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
-    .buy-btn:hover {
-      background-color: #7ADF7A;
-    }
-    .buy-btn.disabled {
-      background-color: #ddd;
-      cursor: not-allowed;
-      color: #aaa;
-    }
-
-    /* 响应式设计 */
-    @media (max-width: 768px) {
-      .container {
-        padding: 1rem;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      .fairy-icon {
-        font-size: 4rem;
-      }
-      .deduction-section {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    }
-
-    /* 新增：烟花效果的CSS */
-    .fireworks-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none; /* 禁用鼠标事件，不影响下方内容点击 */
-      z-index: 1000;
-    }
-
-    .firework-particle {
-      position: absolute;
-      font-size: 2rem;
-      animation: explode 0.8s forwards;
-      opacity: 0;
-      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
-    }
-
-    @keyframes explode {
-      0% {
-        transform: translate(0, 0) scale(0);
-        opacity: 1;
-      }
-      50% {
-        opacity: 1;
-        transform: translate(var(--x), var(--y)) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--x), var(--y)) scale(0.5);
-      }
-    }
-  </style>
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+                transform: translate(var(--x), var(--y)) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--x), var(--y)) scale(0.5);
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-  <!-- 游戏主界面 (所有内容集中在此) -->
-  <div id="main-screen">
-    <h1>小精灵成长记</h1>
-    <p>你的每一次努力都会帮助可爱的小精灵茁壮成长！</p>
+    <div class="container">
+        <!-- 游戏主界面 (所有内容集中在此) -->
+        <div id="main-screen">
+            <h1>小精灵成长记</h1>
+            <p>你的每一次努力都会帮助可爱的小精灵茁壮成长！</p>
+            
+            <!-- 积分显示区 - 更加紧凑，同时显示总积分和今日获得 -->
+            <div class="points-display">
+                <div class="total-points">
+                    <span>🍀</span>
+                    <span id="current-points">0</span>
+                    <p>总积分</p>
+                </div>
+                <div class="daily-points">
+                    <span>🎉</span>
+                    <span id="daily-points">0</span>
+                    <p>今日获得</p>
+                </div>
+            </div>
 
-    <!-- 积分显示区 - 更加紧凑，同时显示总积分和今日获得 -->
-    <div class="points-display">
-      <div class="total-points">
-        <span>🍀</span>
-        <span id="current-points">0</span>
-        <p>总积分</p>
-      </div>
-      <div class="daily-points">
-        <span>🎉</span>
-        <span id="daily-points">0</span>
-        <p>今日获得</p>
-      </div>
-    </div>
+            <div class="fairy-container">
+                <div id="fairy-icon" class="fairy-icon">🌱</div>
+                <div class="fairy-text" id="fairy-status">初始阶段</div>
+                <div class="progress-bar-container">
+                    <div id="fairy-progress" class="progress-bar" style="width: 0%;"></div>
+                </div>
+            </div>
+            
+            <!-- 扣分项目区域：改为可折叠样式 -->
+            <section id="deduction-section" class="deduction-section">
+                <div class="deduction-items-wrapper">
+                    <p>❌ 扣分项目:</p>
+                    <button class="deduction-btn" data-deduct-type="snack">-50 零食</button>
+                    <button class="deduction-btn" data-deduct-type="dessert">-50 甜品</button>
+                    <button class="deduction-btn" data-deduct-type="shopping">-100 网购乱买</button>
+                    <button class="deduction-btn" data-deduct-type="lateNight">-50 熬夜行为</button>
+                    <button class="deduction-btn" data-deduct-type="mindlessScrolling">-30 无效刷屏</button>
+                    <button class="deduction-btn" data-deduct-type="impulsiveShopping">-80 冲动消费</button>
+                </div>
+                <!-- 展开/收起按钮 -->
+                <button id="toggle-deductions-btn" class="toggle-btn">
+                    <span id="toggle-text">展开更多</span>
+                    <span id="toggle-icon">▼</span>
+                </button>
+            </section>
+            
+            <!-- 新增的标签切换按钮 -->
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="daily">每日任务</button>
+                <button class="tab-button" data-tab="weekly">每周任务</button>
+                <button class="tab-button" data-tab="achievements">成就项目</button>
+                <button class="tab-button" data-tab="rewards">奖励商店</button>
+            </div>
 
-    <div class="fairy-container">
-      <div id="fairy-icon" class="fairy-icon">🌱</div>
-      <div class="fairy-text" id="fairy-status">初始阶段</div>
-      <div class="progress-bar-container">
-        <div id="fairy-progress" class="progress-bar" style="width: 0%;"></div>
-      </div>
-    </div>
+            <!-- 可切换的内容区域 -->
+            <div id="tab-content-container">
+                <!-- 每日任务卡片 -->
+                <div class="tab-content active" id="daily-tab">
+                    <div class="task-card">
+                        <h3>✅ 每日任务</h3>
+                        <ul id="daily-tasks-list" class="task-list"></ul>
+                    </div>
+                </div>
 
-    <section class="deduction-section">
-      <p>❌ 扣分项目:</p>
-      <button class="deduction-btn" data-deduct-type="snack">-50 零食</button>
-      <button class="deduction-btn" data-deduct-type="dessert">-50 甜品</button>
-      <button class="deduction-btn" data-deduct-type="shopping">-100 网购乱买</button>
-      <button class="deduction-btn" data-deduct-type="lateNight">-50 熬夜行为</button>
-      <button class="deduction-btn" data-deduct-type="mindlessScrolling">-30 无效刷屏</button>
-      <button class="deduction-btn" data-deduct-type="impulsiveShopping">-80 冲动消费</button>
-    </section>
+                <!-- 每周任务卡片 -->
+                <div class="tab-content" id="weekly-tab">
+                    <div class="task-card">
+                        <h3>📋 每周任务</h3>
+                        <ul id="weekly-tasks-list" class="task-list"></ul>
+                    </div>
+                </div>
 
-    <!-- 新增的标签切换按钮 -->
-    <div class="tab-buttons">
-      <button class="tab-button active" data-tab="daily">每日任务</button>
-      <button class="tab-button" data-tab="weekly">每周任务</button>
-      <button class="tab-button" data-tab="achievements">成就项目</button>
-      <button class="tab-button" data-tab="rewards">奖励商店</button>
-    </div>
+                <!-- 成就项目卡片 -->
+                <div class="tab-content" id="achievements-tab">
+                    <div class="task-card">
+                        <h3>✨ 成就项目</h3>
+                        <ul id="achievement-list" class="task-list"></ul>
+                    </div>
+                </div>
 
-    <!-- 可切换的内容区域 -->
-    <div id="tab-content-container">
-      <!-- 每日任务卡片 -->
-      <div class="tab-content active" id="daily-tab">
-        <div class="task-card">
-          <h3>✅ 每日任务</h3>
-          <ul id="daily-tasks-list" class="task-list"></ul>
+                <!-- 奖励商店部分 -->
+                <div class="tab-content" id="rewards-tab">
+                    <section class="rewards-section">
+                        <h2>🎁 奖励商店</h2>
+                        <div id="rewards-grid" class="reward-grid"></div>
+                    </section>
+                </div>
+            </div>
+
         </div>
-      </div>
-
-      <!-- 每周任务卡片 -->
-      <div class="tab-content" id="weekly-tab">
-        <div class="task-card">
-          <h3>📋 每周任务</h3>
-          <ul id="weekly-tasks-list" class="task-list"></ul>
-        </div>
-      </div>
-
-      <!-- 成就项目卡片 -->
-      <div class="tab-content" id="achievements-tab">
-        <div class="task-card">
-          <h3>✨ 成就项目</h3>
-          <ul id="achievement-list" class="task-list"></ul>
-        </div>
-      </div>
-
-      <!-- 奖励商店部分 -->
-      <div class="tab-content" id="rewards-tab">
-        <section class="rewards-section">
-          <h2>🎁 奖励商店</h2>
-          <div id="rewards-grid" class="reward-grid"></div>
-        </section>
-      </div>
     </div>
+    
+    <!-- 新增：用于显示烟花效果的容器 -->
+    <div id="fireworks-container" class="fireworks-container"></div>
 
-  </div>
-</div>
+    <script>
+        // 获取主界面的UI元素
+        const currentPointsEl = document.getElementById('current-points');
+        const dailyPointsEl = document.getElementById('daily-points');
+        const fairyIconEl = document.getElementById('fairy-icon');
+        const fairyStatusEl = document.getElementById('fairy-status');
+        const fairyProgressEl = document.getElementById('fairy-progress');
+        const dailyTasksList = document.getElementById('daily-tasks-list');
+        const weeklyTasksList = document.getElementById('weekly-tasks-list');
+        const achievementList = document.getElementById('achievement-list');
+        const rewardsGrid = document.getElementById('rewards-grid');
+        const deductionBtns = document.querySelectorAll('.deduction-btn');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const fireworksContainer = document.getElementById('fireworks-container');
+        
+        // 新增的UI元素
+        const deductionSection = document.getElementById('deduction-section');
+        const toggleDeductionsBtn = document.getElementById('toggle-deductions-btn');
+        const toggleText = document.getElementById('toggle-text');
+        const toggleIcon = document.getElementById('toggle-icon');
 
-<!-- 新增：用于显示烟花效果的容器 -->
-<div id="fireworks-container" class="fireworks-container"></div>
+        // 定义游戏数据结构
+        let gameData = {
+            points: 0,
+            dailyPoints: 0, // 新增：今日获得积分
+            dailyTasks: {},
+            weeklyTasks: {},
+            achievements: {},
+            lastDailyReset: null,
+            lastWeeklyReset: null,
+            unlockedRewards: {},
+        };
 
-<script>
-  // 获取主界面的UI元素
-  const currentPointsEl = document.getElementById('current-points');
-  const dailyPointsEl = document.getElementById('daily-points');
-  const fairyIconEl = document.getElementById('fairy-icon');
-  const fairyStatusEl = document.getElementById('fairy-status');
-  const fairyProgressEl = document.getElementById('fairy-progress');
-  const dailyTasksList = document.getElementById('daily-tasks-list');
-  const weeklyTasksList = document.getElementById('weekly-tasks-list');
-  const achievementList = document.getElementById('achievement-list');
-  const rewardsGrid = document.getElementById('rewards-grid');
-  const deductionBtns = document.querySelectorAll('.deduction-btn');
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabContents = document.querySelectorAll('.tab-content');
-  const fireworksContainer = document.getElementById('fireworks-container');
+        // 任务列表和分数
+        const TASKS = {
+            daily: [
+                { id: 'onedayoneal', name: '一日一餐', points: 30, icon: '🥣' },
+                { id: 'purevegan', name: '纯素食', points: 20, icon: '🥕' },
+                { id: 'nosugardrink', name: '没吃甜品和饮料', points: 15, icon: '🚫' },
+                { id: 'noonlineshopping', name: '没有网购买任何东西', points: 10, icon: '🛒' },
+                { id: 'nocarbs', name: '没吃碳水', points: 15, icon: '🍚' },
+                { id: 'meditate', name: '每日冥想5分钟', points: 10, icon: '🧘‍♀️' },
+                { id: 'notakeout', name: '没有点外卖', points: 10, icon: '🥡' },
+                { id: 'sleepbefore23', name: '23点以前睡觉', points: 15, icon: '🌙' },
+                { id: 'wakebefore730', name: '7:30之前起床', points: 15, icon: '☀️' },
+                { id: 'drink1lwater', name: '喝1L水', points: 10, icon: '💧' },
+                { id: 'clean-up', name: '整理空间', points: 5, icon: '🧹' },
+                { id: 'morning-workout', name: '早起晨练', points: 10, icon: '🏃' },
+            ],
+            weekly: [
+                { id: 'eatfish', name: '吃2条鱼', points: 50, icon: '🐟' },
+                { id: 'strength', name: '力量训练2次', points: 100, icon: '💪' },
+                { id: 'run', name: '跑步总计15km', points: 150, icon: '🏃' },
+                { id: 'yoga', name: '瑜伽三次', points: 100, icon: '🧘‍♂️' },
+                { id: 'mask', name: '敷面膜一次', points: 30, icon: '💆‍♀️' },
+                { id: 'eatyougurt', name: '吃酸奶两次', points: 30, icon: '🍦' },
+                { id: 'losetwokg', name: '掉秤2kg', points: 200, icon: '⚖️' },
+                { id: 'readbooks', name: '读完了2本书并且写了总结', points: 200, icon: '📚' },
+                { id: 'bikeride', name: '周末骑车出去玩一次', points: 80, icon: '🚲' },
+            ],
+            achievements: [
+                { id: 'weight53', name: '体重达到53kg', points: 1000, icon: '🌟' },
+                { id: 'weight50', name: '体重达到50kg', points: 2000, icon: '✨' },
+                { id: 'weight45', name: '体重达到45kg', points: 5000, icon: '💎' },
+            ],
+            deductions: {
+                snack: 50,
+                dessert: 50,
+                shopping: 100,
+                lateNight: 50,
+                mindlessScrolling: 30,
+                impulsiveShopping: 80,
+            }
+        };
 
-  // 定义游戏数据结构
-  let gameData = {
-    points: 0,
-    dailyPoints: 0, // 新增：今日获得积分
-    dailyTasks: {},
-    weeklyTasks: {},
-    achievements: {},
-    lastDailyReset: null,
-    lastWeeklyReset: null,
-    unlockedRewards: {},
-  };
+        const REWARDS = {
+            clothes: { name: '买衣服', cost: 1000, img: 'https://placehold.co/150x150/ffc0cb/000?text=衣服', unlocked: true },
+            shoes: { name: '买鞋子', cost: 1500, img: 'https://placehold.co/150x150/add8e6/000?text=鞋子', unlocked: true },
+            digital: { name: '买数码产品', cost: 3000, img: 'https://placehold.co/150x150/98fb98/000?text=数码', unlocked: true },
+            domestictravel: { name: '国内旅行', cost: 5000, img: 'https://placehold.co/150x150/ffc0cb/000?text=国内旅行', unlocked: true },
+            malaysiatravel: { name: '马来西亚旅行', cost: 10000, img: 'https://placehold.co/150x150/add8e6/000?text=马来西亚', unlocked: true },
+            japantravel: { name: '日本旅行', cost: 15000, img: 'https://placehold.co/150x150/98fb98/000?text=日本旅行', unlocked: false }, // 初始锁定
+        };
+        
+        // 精灵成长阶段
+        const FAIRY_STAGES = [
+            { icon: '🌱', status: '小嫩芽', minPoints: 0 },
+            { icon: '🪴', status: '小盆栽', minPoints: 500 },
+            { icon: '🌿', status: '小花苞', minPoints: 1500 },
+            { icon: '🌸', status: '小花仙', minPoints: 5000 },
+            { icon: '🧚', status: '精灵女王', minPoints: 10000 }
+        ];
 
-  // 任务列表和分数
-  const TASKS = {
-    daily: [
-      { id: 'onedayoneal', name: '一日一餐', points: 30, icon: '🥣' },
-      { id: 'purevegan', name: '纯素食', points: 20, icon: '🥕' },
-      { id: 'nosugardrink', name: '没吃甜品和饮料', points: 15, icon: '🚫' },
-      { id: 'noonlineshopping', name: '没有网购买任何东西', points: 10, icon: '🛒' },
-      { id: 'nocarbs', name: '没吃碳水', points: 15, icon: '🍚' },
-      { id: 'meditate', name: '每日冥想5分钟', points: 10, icon: '🧘‍♀️' },
-      { id: 'notakeout', name: '没有点外卖', points: 10, icon: '🥡' },
-      { id: 'sleepbefore23', name: '23点以前睡觉', points: 15, icon: '🌙' },
-      { id: 'wakebefore730', name: '7:30之前起床', points: 15, icon: '☀️' },
-      { id: 'drink1lwater', name: '喝1L水', points: 10, icon: '💧' },
-      { id: 'clean-up', name: '整理空间', points: 5, icon: '🧹' },
-      { id: 'morning-workout', name: '早起晨练', points: 10, icon: '🏃' },
-    ],
-    weekly: [
-      { id: 'eatfish', name: '吃2条鱼', points: 50, icon: '🐟' },
-      { id: 'strength', name: '力量训练2次', points: 100, icon: '💪' },
-      { id: 'run', name: '跑步总计15km', points: 150, icon: '🏃' },
-      { id: 'yoga', name: '瑜伽三次', points: 100, icon: '🧘‍♂️' },
-      { id: 'mask', name: '敷面膜一次', points: 30, icon: '💆‍♀️' },
-      { id: 'eatyougurt', name: '吃酸奶两次', points: 30, icon: '🍦' },
-      { id: 'losetwokg', name: '掉秤2kg', points: 200, icon: '⚖️' },
-      { id: 'readbooks', name: '读完了2本书并且写了总结', points: 200, icon: '📚' },
-      { id: 'bikeride', name: '周末骑车出去玩一次', points: 80, icon: '🚲' },
-    ],
-    achievements: [
-      { id: 'weight53', name: '体重达到53kg', points: 1000, icon: '🌟' },
-      { id: 'weight50', name: '体重达到50kg', points: 2000, icon: '✨' },
-      { id: 'weight45', name: '体重达到45kg', points: 5000, icon: '💎' },
-    ],
-    deductions: {
-      snack: 50,
-      dessert: 50,
-      shopping: 100,
-      lateNight: 50,
-      mindlessScrolling: 30,
-      impulsiveShopping: 80,
-    }
-  };
-
-  const REWARDS = {
-    clothes: { name: '买衣服', cost: 1000, img: 'https://placehold.co/150x150/ffc0cb/000?text=衣服', unlocked: true },
-    shoes: { name: '买鞋子', cost: 1500, img: 'https://placehold.co/150x150/add8e6/000?text=鞋子', unlocked: true },
-    digital: { name: '买数码产品', cost: 3000, img: 'https://placehold.co/150x150/98fb98/000?text=数码', unlocked: true },
-    domestictravel: { name: '国内旅行', cost: 5000, img: 'https://placehold.co/150x150/ffc0cb/000?text=国内旅行', unlocked: true },
-    malaysiatravel: { name: '马来西亚旅行', cost: 10000, img: 'https://placehold.co/150x150/add8e6/000?text=马来西亚', unlocked: true },
-    japantravel: { name: '日本旅行', cost: 15000, img: 'https://placehold.co/150x150/98fb98/000?text=日本旅行', unlocked: false }, // 初始锁定
-  };
-
-  // 精灵成长阶段
-  const FAIRY_STAGES = [
-    { icon: '🌱', status: '小嫩芽', minPoints: 0 },
-    { icon: '🪴', status: '小盆栽', minPoints: 500 },
-    { icon: '🌿', status: '小花苞', minPoints: 1500 },
-    { icon: '🌸', status: '小花仙', minPoints: 5000 },
-    { icon: '🧚', status: '精灵女王', minPoints: 10000 }
-  ];
-
-  /**
-   * 初始化游戏，从本地存储加载数据或创建新数据
-   */
-  function initGame() {
-    const savedData = localStorage.getItem('goalGameData');
-    if (savedData) {
-      gameData = JSON.parse(savedData);
-      // 确保数据结构完整性，防止新字段未加载
-      if (typeof gameData.dailyPoints === 'undefined') {
-        gameData.dailyPoints = 0;
-      }
-      // 检查任务是否需要刷新
-      checkAndResetTasks();
-      // 确保数据结构完整性，防止新任务未加载
-      TASKS.daily.forEach(task => { if (!(task.id in gameData.dailyTasks)) gameData.dailyTasks[task.id] = false; });
-      TASKS.weekly.forEach(task => { if (!(task.id in gameData.weeklyTasks)) gameData.weeklyTasks[task.id] = false; });
-      // 确保奖励商店状态完整性
-      for (const key in REWARDS) {
-        if (!(key in gameData.unlockedRewards)) {
-          gameData.unlockedRewards[key] = REWARDS[key].unlocked;
+        /**
+         * 初始化游戏，从本地存储加载数据或创建新数据
+         */
+        function initGame() {
+            const savedData = localStorage.getItem('goalGameData');
+            if (savedData) {
+                gameData = JSON.parse(savedData);
+                // 确保数据结构完整性，防止新字段未加载
+                if (typeof gameData.dailyPoints === 'undefined') {
+                    gameData.dailyPoints = 0;
+                }
+                // 检查任务是否需要刷新
+                checkAndResetTasks();
+                // 确保数据结构完整性，防止新任务未加载
+                TASKS.daily.forEach(task => { if (!(task.id in gameData.dailyTasks)) gameData.dailyTasks[task.id] = false; });
+                TASKS.weekly.forEach(task => { if (!(task.id in gameData.weeklyTasks)) gameData.weeklyTasks[task.id] = false; });
+                // 确保奖励商店状态完整性
+                for (const key in REWARDS) {
+                    if (!(key in gameData.unlockedRewards)) {
+                        gameData.unlockedRewards[key] = REWARDS[key].unlocked;
+                    }
+                }
+            } else {
+                // 如果没有本地数据，初始化所有任务为未完成
+                TASKS.daily.forEach(task => gameData.dailyTasks[task.id] = false);
+                TASKS.weekly.forEach(task => gameData.weeklyTasks[task.id] = false);
+                TASKS.achievements.forEach(achievement => gameData.achievements[achievement.id] = false);
+                for (const key in REWARDS) {
+                    gameData.unlockedRewards[key] = REWARDS[key].unlocked;
+                }
+                checkAndResetTasks();
+            }
+            // 首次加载或重新加载时更新UI
+            updateUI();
         }
-      }
-    } else {
-      // 如果没有本地数据，初始化所有任务为未完成
-      TASKS.daily.forEach(task => gameData.dailyTasks[task.id] = false);
-      TASKS.weekly.forEach(task => gameData.weeklyTasks[task.id] = false);
-      TASKS.achievements.forEach(achievement => gameData.achievements[achievement.id] = false);
-      for (const key in REWARDS) {
-        gameData.unlockedRewards[key] = REWARDS[key].unlocked;
-      }
-      checkAndResetTasks();
-    }
-    // 首次加载或重新加载时更新UI
-    updateUI();
-  }
 
-  /**
-   * 检查并重置每日和每周任务
-   */
-  function checkAndResetTasks() {
-    const now = new Date();
-    const today = now.toDateString();
-    const weekNumber = getWeekNumber(now);
+        /**
+         * 检查并重置每日和每周任务
+         */
+        function checkAndResetTasks() {
+            const now = new Date();
+            const today = now.toDateString();
+            const weekNumber = getWeekNumber(now);
 
-    // 重置每日任务
-    if (gameData.lastDailyReset !== today) {
-      gameData.dailyTasks = {};
-      gameData.dailyPoints = 0; // 重置今日获得积分
-      TASKS.daily.forEach(task => gameData.dailyTasks[task.id] = false);
-      gameData.lastDailyReset = today;
-    }
+            // 重置每日任务
+            if (gameData.lastDailyReset !== today) {
+                gameData.dailyTasks = {};
+                gameData.dailyPoints = 0; // 重置今日获得积分
+                TASKS.daily.forEach(task => gameData.dailyTasks[task.id] = false);
+                gameData.lastDailyReset = today;
+            }
 
-    // 重置每周任务
-    if (gameData.lastWeeklyReset !== weekNumber) {
-      gameData.weeklyTasks = {};
-      TASKS.weekly.forEach(task => gameData.weeklyTasks[task.id] = false);
-      gameData.lastWeeklyReset = weekNumber;
-    }
-    saveData();
-  }
+            // 重置每周任务
+            if (gameData.lastWeeklyReset !== weekNumber) {
+                gameData.weeklyTasks = {};
+                TASKS.weekly.forEach(task => gameData.weeklyTasks[task.id] = false);
+                gameData.lastWeeklyReset = weekNumber;
+            }
+            saveData();
+        }
+        
+        /**
+         * 获取当前年份的第几周
+         * @param {Date} date
+         * @returns {number}
+         */
+        function getWeekNumber(date) {
+            const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+            const dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        }
 
-  /**
-   * 获取当前年份的第几周
-   * @param {Date} date
-   * @returns {number}
-   */
-  function getWeekNumber(date) {
-    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-    const dayNum = d.getUTCDay() || 7;
-    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-  }
+        /**
+         * 将游戏数据保存到本地存储
+         */
+        function saveData() {
+            localStorage.setItem('goalGameData', JSON.stringify(gameData));
+        }
 
-  /**
-   * 将游戏数据保存到本地存储
-   */
-  function saveData() {
-    localStorage.setItem('goalGameData', JSON.stringify(gameData));
-  }
+        /**
+         * 更新所有UI元素以反映当前游戏数据
+         */
+        function updateUI() {
+            currentPointsEl.textContent = gameData.points;
+            dailyPointsEl.textContent = gameData.dailyPoints;
+            updateFairyStatus();
+            renderTasks('daily', dailyTasksList);
+            renderTasks('weekly', weeklyTasksList);
+            renderAchievements();
+            renderRewards();
+        }
 
-  /**
-   * 更新所有UI元素以反映当前游戏数据
-   */
-  function updateUI() {
-    currentPointsEl.textContent = gameData.points;
-    dailyPointsEl.textContent = gameData.dailyPoints;
-    updateFairyStatus();
-    renderTasks('daily', dailyTasksList);
-    renderTasks('weekly', weeklyTasksList);
-    renderAchievements();
-    renderRewards();
-  }
+        /**
+         * 更新小精灵状态和进度条
+         */
+        function updateFairyStatus() {
+            const totalPointsNeeded = FAIRY_STAGES[FAIRY_STAGES.length - 1].minPoints;
+            let currentStage = FAIRY_STAGES[0];
+            for (let i = 0; i < FAIRY_STAGES.length; i++) {
+                if (gameData.points >= FAIRY_STAGES[i].minPoints) {
+                    currentStage = FAIRY_STAGES[i];
+                }
+            }
 
-  /**
-   * 更新小精灵状态和进度条
-   */
-  function updateFairyStatus() {
-    const totalPointsNeeded = FAIRY_STAGES[FAIRY_STAGES.length - 1].minPoints;
-    let currentStage = FAIRY_STAGES[0];
-    for (let i = 0; i < FAIRY_STAGES.length; i++) {
-      if (gameData.points >= FAIRY_STAGES[i].minPoints) {
-        currentStage = FAIRY_STAGES[i];
-      }
-    }
+            fairyIconEl.textContent = currentStage.icon;
+            fairyStatusEl.textContent = currentStage.status;
 
-    fairyIconEl.textContent = currentStage.icon;
-    fairyStatusEl.textContent = currentStage.status;
+            // 计算下一阶段所需的积分
+            let nextStage = FAIRY_STAGES[FAIRY_STAGES.indexOf(currentStage) + 1];
+            let progressPercentage = 0;
+            if (nextStage) {
+                const pointsInStage = gameData.points - currentStage.minPoints;
+                const pointsToNextStage = nextStage.minPoints - currentStage.minPoints;
+                progressPercentage = (pointsInStage / pointsToNextStage) * 100;
+            } else {
+                progressPercentage = 100; // 满级
+            }
+            fairyProgressEl.style.width = `${progressPercentage}%`;
+        }
 
-    // 计算下一阶段所需的积分
-    let nextStage = FAIRY_STAGES[FAIRY_STAGES.indexOf(currentStage) + 1];
-    let progressPercentage = 0;
-    if (nextStage) {
-      const pointsInStage = gameData.points - currentStage.minPoints;
-      const pointsToNextStage = nextStage.minPoints - currentStage.minPoints;
-      progressPercentage = (pointsInStage / pointsToNextStage) * 100;
-    } else {
-      progressPercentage = 100; // 满级
-    }
-    fairyProgressEl.style.width = `${progressPercentage}%`;
-  }
-
-  /**
-   * 渲染每日、每周任务列表
-   * @param {string} type - 'daily' or 'weekly'
-   * @param {HTMLElement} listElement - 对应的任务列表DOM元素
-   */
-  function renderTasks(type, listElement) {
-    listElement.innerHTML = '';
-    TASKS[type].forEach(task => {
-      const isCompleted = gameData[`${type}Tasks`][task.id];
-      const li = document.createElement('li');
-      li.className = `task-item ${isCompleted ? 'completed' : ''}`;
-      li.innerHTML = `
+        /**
+         * 渲染每日、每周任务列表
+         * @param {string} type - 'daily' or 'weekly'
+         * @param {HTMLElement} listElement - 对应的任务列表DOM元素
+         */
+        function renderTasks(type, listElement) {
+            listElement.innerHTML = '';
+            TASKS[type].forEach(task => {
+                const isCompleted = gameData[`${type}Tasks`][task.id];
+                const li = document.createElement('li');
+                li.className = `task-item ${isCompleted ? 'completed' : ''}`;
+                li.innerHTML = `
                     <div class="task-name">
                         <span>${task.icon}</span>
                         <span>${task.name}</span>
@@ -715,76 +759,76 @@
                     <span class="task-points">${isCompleted ? '-' : '+'}${task.points}</span>
                 `;
 
-      // 新增逻辑: 再次点击可以撤销
-      li.addEventListener('click', () => {
-        const taskStatus = gameData[`${type}Tasks`][task.id];
-        if (taskStatus) { // 如果已完成，则撤销
-          gameData.points -= task.points;
-          gameData.dailyPoints -= task.points;
-          gameData[`${type}Tasks`][task.id] = false;
-        } else { // 如果未完成，则完成
-          gameData.points += task.points;
-          gameData.dailyPoints += task.points;
-          gameData[`${type}Tasks`][task.id] = true;
-          // 每日任务完成时触发烟花效果
-          if (type === 'daily') {
-            animateFireworks(li);
-          }
+                // 新增逻辑: 再次点击可以撤销
+                li.addEventListener('click', () => {
+                    const taskStatus = gameData[`${type}Tasks`][task.id];
+                    if (taskStatus) { // 如果已完成，则撤销
+                        gameData.points -= task.points;
+                        gameData.dailyPoints -= task.points;
+                        gameData[`${type}Tasks`][task.id] = false;
+                    } else { // 如果未完成，则完成
+                        gameData.points += task.points;
+                        gameData.dailyPoints += task.points;
+                        gameData[`${type}Tasks`][task.id] = true;
+                        // 每日任务完成时触发烟花效果
+                        if (type === 'daily') {
+                            animateFireworks(li);
+                        }
+                    }
+                    saveData();
+                    updateUI();
+                });
+
+                listElement.appendChild(li);
+            });
         }
-        saveData();
-        updateUI();
-      });
 
-      listElement.appendChild(li);
-    });
-  }
-
-  /**
-   * 渲染成就列表
-   */
-  function renderAchievements() {
-    achievementList.innerHTML = '';
-    TASKS.achievements.forEach(achievement => {
-      const isCompleted = gameData.achievements[achievement.id];
-      const li = document.createElement('li');
-      li.className = `task-item ${isCompleted ? 'completed' : ''}`;
-      li.innerHTML = `
+        /**
+         * 渲染成就列表
+         */
+        function renderAchievements() {
+            achievementList.innerHTML = '';
+            TASKS.achievements.forEach(achievement => {
+                const isCompleted = gameData.achievements[achievement.id];
+                const li = document.createElement('li');
+                li.className = `task-item ${isCompleted ? 'completed' : ''}`;
+                li.innerHTML = `
                     <div class="task-name">
                         <span>${achievement.icon}</span>
                         <span>${achievement.name}</span>
                     </div>
                     <span class="task-points">+${achievement.points}</span>
                 `;
-      li.addEventListener('click', () => {
-        if (!isCompleted) {
-          // 这里可以添加逻辑来检查是否真的达成成就，例如通过用户输入
-          gameData.points += achievement.points;
-          gameData.dailyPoints += achievement.points; // 成就完成后，同步增加今日积分
-          gameData.achievements[achievement.id] = true;
-          // 检查是否解锁日本旅行
-          if (achievement.id === 'weight45') { // 假设体重45kg是解锁条件
-            gameData.unlockedRewards.japantravel = true;
-          }
-          saveData();
-          updateUI();
+                li.addEventListener('click', () => {
+                    if (!isCompleted) {
+                         // 这里可以添加逻辑来检查是否真的达成成就，例如通过用户输入
+                        gameData.points += achievement.points;
+                        gameData.dailyPoints += achievement.points; // 成就完成后，同步增加今日积分
+                        gameData.achievements[achievement.id] = true;
+                        // 检查是否解锁日本旅行
+                        if (achievement.id === 'weight45') { // 假设体重45kg是解锁条件
+                             gameData.unlockedRewards.japantravel = true;
+                        }
+                        saveData();
+                        updateUI();
+                    }
+                });
+                achievementList.appendChild(li);
+            });
         }
-      });
-      achievementList.appendChild(li);
-    });
-  }
-
-  /**
-   * 渲染奖励商店
-   */
-  function renderRewards() {
-    rewardsGrid.innerHTML = '';
-    for (const key in REWARDS) {
-      const reward = REWARDS[key];
-      const isUnlocked = gameData.unlockedRewards[key];
-      const hasEnoughPoints = gameData.points >= reward.cost;
-      const card = document.createElement('div');
-      card.className = 'reward-card';
-      card.innerHTML = `
+        
+        /**
+         * 渲染奖励商店
+         */
+        function renderRewards() {
+            rewardsGrid.innerHTML = '';
+            for (const key in REWARDS) {
+                const reward = REWARDS[key];
+                const isUnlocked = gameData.unlockedRewards[key];
+                const hasEnoughPoints = gameData.points >= reward.cost;
+                const card = document.createElement('div');
+                card.className = 'reward-card';
+                card.innerHTML = `
                     <img src="${reward.img}" alt="${reward.name}">
                     <h4>${reward.name}</h4>
                     <p>成本: ${reward.cost} 🍀</p>
@@ -792,91 +836,103 @@
                         ${isUnlocked ? '兑换' : '待解锁'}
                     </button>
                 `;
-      rewardsGrid.appendChild(card);
-    }
-  }
+                rewardsGrid.appendChild(card);
+            }
+        }
 
-  /**
-   * 事件监听器
-   */
-  deductionBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const type = btn.dataset.deductType;
-      const deductionAmount = TASKS.deductions[type];
-      gameData.points -= deductionAmount;
-      if (gameData.points < 0) gameData.points = 0; // 积分不能为负
-      saveData();
-      updateUI();
-    });
-  });
+        /**
+         * 事件监听器
+         */
+        deductionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.dataset.deductType;
+                const deductionAmount = TASKS.deductions[type];
+                gameData.points -= deductionAmount;
+                if (gameData.points < 0) gameData.points = 0; // 积分不能为负
+                saveData();
+                updateUI();
+            });
+        });
 
-  rewardsGrid.addEventListener('click', (event) => {
-    if (event.target.classList.contains('buy-btn') && !event.target.disabled) {
-      const key = event.target.dataset.rewardKey;
-      const reward = REWARDS[key];
-      if (gameData.points >= reward.cost) {
-        gameData.points -= reward.cost;
-        alert(`恭喜你！成功兑换了 ${reward.name}！`);
-        saveData();
-        updateUI();
-      } else {
-        alert('你的积分不足，请继续努力！');
-      }
-    }
-  });
+        rewardsGrid.addEventListener('click', (event) => {
+            if (event.target.classList.contains('buy-btn') && !event.target.disabled) {
+                const key = event.target.dataset.rewardKey;
+                const reward = REWARDS[key];
+                if (gameData.points >= reward.cost) {
+                    gameData.points -= reward.cost;
+                    alert(`恭喜你！成功兑换了 ${reward.name}！`);
+                    saveData();
+                    updateUI();
+                } else {
+                    alert('你的积分不足，请继续努力！');
+                }
+            }
+        });
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
 
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const targetTab = button.dataset.tab;
+                // 移除所有按钮的 active 类
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // 为点击的按钮添加 active 类
+                button.classList.add('active');
 
-      // 移除所有按钮的 active 类
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      // 为点击的按钮添加 active 类
-      button.classList.add('active');
+                // 隐藏所有内容区域
+                tabContents.forEach(content => content.classList.remove('active'));
+                // 显示目标内容区域
+                document.getElementById(`${targetTab}-tab`).classList.add('active');
+            });
+        });
+        
+        // 新增：扣分项目展开/收起功能
+        toggleDeductionsBtn.addEventListener('click', () => {
+            const isExpanded = deductionSection.classList.toggle('expanded');
+            if (isExpanded) {
+                toggleText.textContent = '收起';
+                toggleIcon.textContent = '▲';
+            } else {
+                toggleText.textContent = '展开更多';
+                toggleIcon.textContent = '▼';
+            }
+        });
 
-      // 隐藏所有内容区域
-      tabContents.forEach(content => content.classList.remove('active'));
-      // 显示目标内容区域
-      document.getElementById(`${targetTab}-tab`).classList.add('active');
-    });
-  });
+        /**
+         * 新增: 触发烟花效果的函数
+         * @param {HTMLElement} element - 触发动画的元素
+         */
+        function animateFireworks(element) {
+            const rect = element.getBoundingClientRect();
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+            const emojis = ['🎉', '🎊', '✨', '🎈', '💖'];
+            const numberOfParticles = 20;
 
-  /**
-   * 新增: 触发烟花效果的函数
-   * @param {HTMLElement} element - 触发动画的元素
-   */
-  function animateFireworks(element) {
-    const rect = element.getBoundingClientRect();
-    const startX = rect.left + rect.width / 2;
-    const startY = rect.top + rect.height / 2;
-    const emojis = ['🎉', '🎊', '✨', '🎈', '💖'];
-    const numberOfParticles = 20;
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework-particle';
+                particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-    for (let i = 0; i < numberOfParticles; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'firework-particle';
-      particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                // 随机化粒子的位置和动画方向
+                const x = (Math.random() - 0.5) * 300;
+                const y = (Math.random() - 0.5) * 300;
+                particle.style.setProperty('--x', `${x}px`);
+                particle.style.setProperty('--y', `${y}px`);
+                
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
 
-      // 随机化粒子的位置和动画方向
-      const x = (Math.random() - 0.5) * 300;
-      const y = (Math.random() - 0.5) * 300;
-      particle.style.setProperty('--x', `${x}px`);
-      particle.style.setProperty('--y', `${y}px`);
+                fireworksContainer.appendChild(particle);
 
-      particle.style.left = `${startX}px`;
-      particle.style.top = `${startY}px`;
+                // 动画结束后移除粒子
+                setTimeout(() => {
+                    particle.remove();
+                }, 800);
+            }
+        }
 
-      fireworksContainer.appendChild(particle);
-
-      // 动画结束后移除粒子
-      setTimeout(() => {
-        particle.remove();
-      }, 800);
-    }
-  }
-
-  // 初始化游戏
-  window.onload = initGame;
-</script>
+        // 初始化游戏
+        window.onload = initGame;
+    </script>
 </body>
 </html>
