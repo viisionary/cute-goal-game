@@ -12,12 +12,13 @@
             --primary-color: #FFC0CB; /* 粉色 */
             --secondary-color: #A3D8FF; /* 浅蓝 */
             --background-color: #F8F9FA; /* 浅灰色 */
-            --text-color: #333;
+            --text-color: #6a6a6a; /* 更柔和的文本颜色 */
             --card-bg: #FFFFFF;
             --border-radius-large: 20px;
             --border-radius-small: 12px;
-            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-heavy: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-heavy: 0 8px 20px rgba(0, 0, 0, 0.15);
+            --shadow-soft: 0 6px 15px rgba(0, 0, 0, 0.12);
             --active-tab-color: #FF69B4;
             --inactive-tab-color: #B0E0E6;
         }
@@ -40,36 +41,36 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 600px; /* 整体尺寸缩小 */
             background-color: var(--card-bg);
             border-radius: var(--border-radius-large);
             box-shadow: var(--shadow-heavy);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
             overflow: hidden;
         }
 
         h1 {
             color: #FF69B4;
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 2.2rem; /* 字体缩小 */
             font-weight: 700;
         }
 
         p {
-            color: #666;
+            color: #888;
             line-height: 1.6;
             margin: 0;
         }
 
-        /* 按钮通用样式 */
+        /* 按钮通用样式 - 添加渐变和更柔和的阴影 */
         .btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: var(--border-radius-small);
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: bold;
             text-decoration: none;
             cursor: pointer;
@@ -82,12 +83,13 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-soft);
         }
 
         .btn-primary {
-            background-color: #FF69B4;
+            background: linear-gradient(45deg, #FF69B4, #FFC0CB);
             color: white;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
         }
 
         .btn-primary:active {
@@ -95,8 +97,9 @@
         }
 
         .btn-secondary {
-            background-color: #B0E0E6;
+            background: linear-gradient(45deg, #B0E0E6, #A3D8FF);
             color: var(--text-color);
+            box-shadow: 0 4px 8px rgba(176, 224, 230, 0.3);
         }
 
         /* 游戏屏幕布局 */
@@ -117,18 +120,18 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: #FF69B4;
         }
 
         .total-points span, .daily-points span {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
         .points-display p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             margin: 0;
-            color: #666;
+            color: #888;
         }
 
         .fairy-container {
@@ -142,11 +145,11 @@
             color: #555;
             font-weight: bold;
         }
-
-        /* 精灵图标和成长进度条 */
-        .fairy-icon {
-            font-size: 5rem;
-            transition: transform 0.5s ease-in-out;
+        
+        /* 小精灵表情符号样式 */
+        .fairy-emoji {
+            font-size: 5rem; /* 大尺寸表情符号 */
+            line-height: 1;
             animation: bounce 2s infinite;
         }
         @keyframes bounce {
@@ -160,91 +163,79 @@
             background-color: #EFEFEF;
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .progress-bar {
             height: 100%;
-            background-color: #98FB98;
+            background: linear-gradient(90deg, #98FB98, #B0E0E6);
             border-radius: 10px;
             transition: width 0.5s ease-in-out;
         }
         
-        /* 扣分项目区：添加可折叠和展开的样式 */
+        /* 扣分项目区：改为横向滚动样式 */
         .deduction-section {
             background-color: #fff;
             padding: 1rem;
             border-radius: var(--border-radius-small);
             box-shadow: var(--shadow-light);
-            transition: max-height 0.3s ease-in-out;
-            max-height: 120px; /* 默认收起状态的高度 */
-            overflow: hidden;
-            position: relative;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
+            text-align: left;
         }
-
-        .deduction-section.expanded {
-            max-height: 500px; /* 展开后的高度，确保能显示所有内容 */
-        }
-
-        .deduction-items-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-        }
-
         .deduction-section p {
             margin: 0 0 1rem 0;
             font-weight: bold;
             color: #888;
         }
+        
+        /* 扣分项目容器，启用横向滚动 */
+        .deduction-items-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 15px;
+        }
+        
+        /* 隐藏滚动条 */
+        .deduction-items-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
 
+        .deduction-items-wrapper::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        
+        /* 扣分按钮新样式 */
         .deduction-btn {
-            background-color: #FF6347;
+            background: linear-gradient(45deg, #FF6347, #FF9966);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: var(--border-radius-small);
             border: none;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: var(--shadow-light);
+            box-shadow: 0 4px 8px rgba(255, 99, 71, 0.3);
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         .deduction-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-soft);
         }
         
-        /* 展开/收起按钮样式 */
-        .toggle-btn {
-            width: 100%;
-            margin-top: 1rem;
-            background-color: var(--inactive-tab-color);
-            color: var(--text-color);
-            padding: 10px;
-            border: none;
-            border-radius: var(--border-radius-small);
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .toggle-btn:hover {
-            background-color: #C0E8F0;
-        }
-        
-        /* 新增的标签切换样式 */
+        /* 标签切换样式 */
         .tab-buttons {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             margin-top: 1rem;
         }
         .tab-button {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
             border-radius: var(--border-radius-small);
             background-color: var(--inactive-tab-color);
@@ -254,9 +245,9 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         .tab-button.active {
-            background-color: var(--active-tab-color);
+            background: linear-gradient(45deg, #FF69B4, #FFC0CB);
             color: white;
-            box-shadow: 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
             transform: translateY(-2px);
         }
         .tab-button:hover:not(.active) {
@@ -271,10 +262,10 @@
             display: block;
         }
         
-        .task-card, .reward-section {
+        .task-card {
             background-color: var(--background-color);
             border-radius: var(--border-radius-small);
-            padding: 15px;
+            padding: 12px;
             box-shadow: var(--shadow-light);
             text-align: left;
             transition: transform 0.2s, box-shadow 0.2s;
@@ -283,7 +274,7 @@
         .task-card h3 {
             margin-top: 0;
             color: #FF69B4;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
         .task-list {
@@ -295,7 +286,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #eee;
             cursor: pointer;
             transition: background-color 0.2s;
@@ -314,12 +305,87 @@
         .task-name {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .task-points {
             font-weight: bold;
             color: #888;
+        }
+
+        /* 奖励商店的固定按钮和模态框 - 调整位置和阴影 */
+        .rewards-button-fixed {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FF69B4, #FFC0CB);
+            color: white;
+            font-size: 1.5rem;
+            line-height: 45px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.4);
+            z-index: 100;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .rewards-button-fixed:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(255, 105, 180, 0.5);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-heavy);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideUp 0.3s forwards;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+        }
+        .modal-close-btn:hover {
+            color: #555;
         }
 
         .rewards-section {
@@ -333,83 +399,102 @@
         .reward-grid {
             display: grid;
             gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 调整为更小尺寸 */
             margin-top: 1rem;
+            justify-items: center;
         }
 
         .reward-card {
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             background-color: #F8F9FA;
             box-shadow: var(--shadow-light);
             border-radius: var(--border-radius-small);
         }
         .reward-card img {
-            max-width: 100%;
-            height: auto;
+            width: 120px;
+            height: 120px; /* 固定为1:1比例 */
+            object-fit: cover;
             border-radius: var(--border-radius-small);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .reward-card h4 {
             margin: 0;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #333;
         }
         .reward-card p {
-            margin: 5px 0 0;
-            font-size: 0.9rem;
+            margin: 4px 0 0;
+            font-size: 0.8rem;
             color: #888;
         }
+        
+        /* 兑换按钮新样式 */
         .buy-btn {
-            background-color: #98FB98;
+            background: linear-gradient(45deg, #98FB98, #B0E0E6);
             color: #333;
-            padding: 8px 16px;
-            margin-top: 10px;
+            padding: 6px 12px;
+            margin-top: 8px;
             border: none;
             border-radius: var(--border-radius-small);
             cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.2s;
+            font-size: 0.8rem;
+            transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
         }
         .buy-btn:hover {
-            background-color: #7ADF7A;
+            background: linear-gradient(45deg, #7ADF7A, #A3D8FF);
+            transform: translateY(-2px);
         }
         .buy-btn.disabled {
             background-color: #ddd;
             cursor: not-allowed;
             color: #aaa;
+            box-shadow: none;
+            transform: none;
         }
 
         /* 响应式设计 */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
             .container {
                 padding: 1rem;
             }
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
-            .fairy-icon {
-                font-size: 4rem;
+            .rewards-button-fixed {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+                line-height: 40px;
+                right: 20px;
+                top: 20px;
+            }
+            .modal-content {
+                width: 95%;
             }
         }
         
-        /* 新增：烟花效果的CSS */
+        /* 烟花效果的CSS */
         .fireworks-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* 禁用鼠标事件，不影响下方内容点击 */
+            pointer-events: none;
             z-index: 1000;
         }
 
         .firework-particle {
             position: absolute;
-            font-size: 2rem;
+            font-size: 1.5rem; /* 烟花粒子更小 */
             animation: explode 0.8s forwards;
             opacity: 0;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.8));
         }
 
         @keyframes explode {
@@ -429,13 +514,16 @@
     </style>
 </head>
 <body>
+    <!-- 奖励商店的固定按钮 -->
+    <div class="rewards-button-fixed" id="rewards-btn">🎁</div>
+
     <div class="container">
         <!-- 游戏主界面 (所有内容集中在此) -->
         <div id="main-screen">
             <h1>小精灵成长记</h1>
             <p>你的每一次努力都会帮助可爱的小精灵茁壮成长！</p>
             
-            <!-- 积分显示区 - 更加紧凑，同时显示总积分和今日获得 -->
+            <!-- 积分显示区 -->
             <div class="points-display">
                 <div class="total-points">
                     <span>🍀</span>
@@ -450,37 +538,32 @@
             </div>
 
             <div class="fairy-container">
-                <div id="fairy-icon" class="fairy-icon">🌱</div>
+                <!-- 精灵形象使用span标签，用表情符号显示 -->
+                <span id="fairy-emoji" class="fairy-emoji"></span>
                 <div class="fairy-text" id="fairy-status">初始阶段</div>
                 <div class="progress-bar-container">
                     <div id="fairy-progress" class="progress-bar" style="width: 0%;"></div>
                 </div>
             </div>
             
-            <!-- 扣分项目区域：改为可折叠样式 -->
+            <!-- 扣分项目区域：改为横向滚动 -->
             <section id="deduction-section" class="deduction-section">
+                <p>❌ 扣分项目:</p>
                 <div class="deduction-items-wrapper">
-                    <p>❌ 扣分项目:</p>
                     <button class="deduction-btn" data-deduct-type="snack">-50 零食</button>
                     <button class="deduction-btn" data-deduct-type="dessert">-50 甜品</button>
                     <button class="deduction-btn" data-deduct-type="shopping">-100 网购乱买</button>
                     <button class="deduction-btn" data-deduct-type="lateNight">-50 熬夜行为</button>
                     <button class="deduction-btn" data-deduct-type="mindlessScrolling">-30 无效刷屏</button>
-                    <button class="deduction-btn" data-deduct-type="impulsiveShopping">-80 冲动消费</button>
+                    <button class="deduction-btn" data-deduction-type="impulsiveShopping">-80 冲动消费</button>
                 </div>
-                <!-- 展开/收起按钮 -->
-                <button id="toggle-deductions-btn" class="toggle-btn">
-                    <span id="toggle-text">展开更多</span>
-                    <span id="toggle-icon">▼</span>
-                </button>
             </section>
             
-            <!-- 新增的标签切换按钮 -->
+            <!-- 标签切换按钮 -->
             <div class="tab-buttons">
                 <button class="tab-button active" data-tab="daily">每日任务</button>
                 <button class="tab-button" data-tab="weekly">每周任务</button>
                 <button class="tab-button" data-tab="achievements">成就项目</button>
-                <button class="tab-button" data-tab="rewards">奖励商店</button>
             </div>
 
             <!-- 可切换的内容区域 -->
@@ -508,48 +591,49 @@
                         <ul id="achievement-list" class="task-list"></ul>
                     </div>
                 </div>
-
-                <!-- 奖励商店部分 -->
-                <div class="tab-content" id="rewards-tab">
-                    <section class="rewards-section">
-                        <h2>🎁 奖励商店</h2>
-                        <div id="rewards-grid" class="reward-grid"></div>
-                    </section>
-                </div>
             </div>
-
         </div>
     </div>
     
-    <!-- 新增：用于显示烟花效果的容器 -->
+    <!-- 用于显示奖励商店的模态框 -->
+    <div id="rewards-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <section class="rewards-section">
+                <h2>🎁 奖励商店</h2>
+                <div id="rewards-grid" class="reward-grid"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 用于显示烟花效果的容器 -->
     <div id="fireworks-container" class="fireworks-container"></div>
 
     <script>
         // 获取主界面的UI元素
         const currentPointsEl = document.getElementById('current-points');
         const dailyPointsEl = document.getElementById('daily-points');
-        const fairyIconEl = document.getElementById('fairy-icon');
+        const fairyEmojiEl = document.getElementById('fairy-emoji');
         const fairyStatusEl = document.getElementById('fairy-status');
         const fairyProgressEl = document.getElementById('fairy-progress');
         const dailyTasksList = document.getElementById('daily-tasks-list');
         const weeklyTasksList = document.getElementById('weekly-tasks-list');
         const achievementList = document.getElementById('achievement-list');
-        const rewardsGrid = document.getElementById('rewards-grid');
         const deductionBtns = document.querySelectorAll('.deduction-btn');
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
         const fireworksContainer = document.getElementById('fireworks-container');
         
-        // 新增的UI元素
-        const deductionSection = document.getElementById('deduction-section');
-        const toggleDeductionsBtn = document.getElementById('toggle-deductions-btn');
-        const toggleText = document.getElementById('toggle-text');
-        const toggleIcon = document.getElementById('toggle-icon');
+        // 新增的UI元素：奖励商店相关
+        const rewardsBtn = document.getElementById('rewards-btn');
+        const rewardsModal = document.getElementById('rewards-modal');
+        const rewardsModalCloseBtn = rewardsModal.querySelector('.modal-close-btn');
+        const rewardsGrid = document.getElementById('rewards-grid');
 
         // 定义游戏数据结构
         let gameData = {
             points: 0,
-            dailyPoints: 0, // 新增：今日获得积分
+            dailyPoints: 0,
             dailyTasks: {},
             weeklyTasks: {},
             achievements: {},
@@ -573,6 +657,7 @@
                 { id: 'drink1lwater', name: '喝1L水', points: 10, icon: '💧' },
                 { id: 'clean-up', name: '整理空间', points: 5, icon: '🧹' },
                 { id: 'morning-workout', name: '早起晨练', points: 10, icon: '🏃' },
+                { id: 'noGarbage', name: '今天没有产生垃圾', points: 20, icon: '♻️' }
             ],
             weekly: [
                 { id: 'eatfish', name: '吃2条鱼', points: 50, icon: '🐟' },
@@ -584,11 +669,19 @@
                 { id: 'losetwokg', name: '掉秤2kg', points: 200, icon: '⚖️' },
                 { id: 'readbooks', name: '读完了2本书并且写了总结', points: 200, icon: '📚' },
                 { id: 'bikeride', name: '周末骑车出去玩一次', points: 80, icon: '🚲' },
+                { id: 'friendMeal', name: '和朋友聚餐一次', points: 50, icon: '🍽️' },
+                { id: 'cleanHouse', name: '彻底打扫一次卫生', points: 70, icon: '🧼' },
+                { id: 'watchMovie', name: '看一部电影', points: 50, icon: '🎬' }
             ],
             achievements: [
                 { id: 'weight53', name: '体重达到53kg', points: 1000, icon: '🌟' },
                 { id: 'weight50', name: '体重达到50kg', points: 2000, icon: '✨' },
                 { id: 'weight45', name: '体重达到45kg', points: 5000, icon: '💎' },
+                { id: 'read30days', name: '连续阅读30天', points: 800, icon: '📖' },
+                { id: 'runMarathon', name: '完成一次马拉松', points: 2000, icon: '🏅' },
+                { id: 'newSkill', name: '学会一项新技能', points: 1500, icon: '💡' },
+                { id: 'learnNewLanguage', name: '学会一门新语言', points: 3000, icon: '🗣️' },
+                { id: '10000Steps', name: '连续10天日行一万步', points: 500, icon: '👟' },
             ],
             deductions: {
                 snack: 50,
@@ -600,22 +693,25 @@
             }
         };
 
+        // 奖励商店的物品和图片
         const REWARDS = {
-            clothes: { name: '买衣服', cost: 1000, img: 'https://placehold.co/150x150/ffc0cb/000?text=衣服', unlocked: true },
-            shoes: { name: '买鞋子', cost: 1500, img: 'https://placehold.co/150x150/add8e6/000?text=鞋子', unlocked: true },
-            digital: { name: '买数码产品', cost: 3000, img: 'https://placehold.co/150x150/98fb98/000?text=数码', unlocked: true },
-            domestictravel: { name: '国内旅行', cost: 5000, img: 'https://placehold.co/150x150/ffc0cb/000?text=国内旅行', unlocked: true },
-            malaysiatravel: { name: '马来西亚旅行', cost: 10000, img: 'https://placehold.co/150x150/add8e6/000?text=马来西亚', unlocked: true },
-            japantravel: { name: '日本旅行', cost: 15000, img: 'https://placehold.co/150x150/98fb98/000?text=日本旅行', unlocked: false }, // 初始锁定
+            clothes: { name: '买衣服', cost: 1000, img: 'https://images.pexels.com/photos/1672304/pexels-photo-1672304.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true },
+            shoes: { name: '买鞋子', cost: 1500, img: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true },
+            digital: { name: '买数码产品', cost: 3000, img: 'https://images.pexels.com/photos/2528118/pexels-photo-2528118.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true },
+            domestictravel: { name: '国内旅行', cost: 5000, img: 'https://images.pexels.com/photos/1034662/pexels-photo-1034662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true },
+            malaysiatravel: { name: '马来西亚旅行', cost: 10000, img: 'https://images.pexels.com/photos/2478248/pexels-photo-2478248.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true },
+            japantravel: { name: '日本旅行', cost: 15000, img: 'https://images.pexels.com/photos/13593368/pexels-photo-13593368.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: false },
+            spaSession: { name: '一次SPA', cost: 1200, img: 'https://images.pexels.com/photos/6620956/pexels-photo-6620956.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true},
+            books: { name: '买三本新书', cost: 500, img: 'https://images.pexels.com/photos/16650422/pexels-photo-16650422/free-photo-of-vintage-books-on-the-desk-in-library.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', unlocked: true},
         };
         
-        // 精灵成长阶段
+        // 精灵成长阶段 (使用表情符号)
         const FAIRY_STAGES = [
-            { icon: '🌱', status: '小嫩芽', minPoints: 0 },
-            { icon: '🪴', status: '小盆栽', minPoints: 500 },
-            { icon: '🌿', status: '小花苞', minPoints: 1500 },
-            { icon: '🌸', status: '小花仙', minPoints: 5000 },
-            { icon: '🧚', status: '精灵女王', minPoints: 10000 }
+            { emoji: '🌱', status: '小种子', minPoints: 0 },
+            { emoji: '🌿', status: '小嫩芽', minPoints: 500 },
+            { emoji: '🌸', status: '小花苞', minPoints: 1500 },
+            { emoji: '🧚‍♀️', status: '小花仙', minPoints: 5000 },
+            { emoji: '👸', status: '精灵女王', minPoints: 10000 }
         ];
 
         /**
@@ -634,6 +730,7 @@
                 // 确保数据结构完整性，防止新任务未加载
                 TASKS.daily.forEach(task => { if (!(task.id in gameData.dailyTasks)) gameData.dailyTasks[task.id] = false; });
                 TASKS.weekly.forEach(task => { if (!(task.id in gameData.weeklyTasks)) gameData.weeklyTasks[task.id] = false; });
+                TASKS.achievements.forEach(achievement => { if (!(achievement.id in gameData.achievements)) gameData.achievements[achievement.id] = false; });
                 // 确保奖励商店状态完整性
                 for (const key in REWARDS) {
                     if (!(key in gameData.unlockedRewards)) {
@@ -723,8 +820,8 @@
                     currentStage = FAIRY_STAGES[i];
                 }
             }
-
-            fairyIconEl.textContent = currentStage.icon;
+            
+            fairyEmojiEl.textContent = currentStage.emoji;
             fairyStatusEl.textContent = currentStage.status;
 
             // 计算下一阶段所需的积分
@@ -832,7 +929,7 @@
                     <img src="${reward.img}" alt="${reward.name}">
                     <h4>${reward.name}</h4>
                     <p>成本: ${reward.cost} 🍀</p>
-                    <button class="buy-btn" data-reward-key="${key}" ${!isUnlocked || !hasEnoughPoints ? 'disabled' : ''}>
+                    reward-key="${key}" ${!isUnlocked || !hasEnoughPoints ? 'disabled' : ''}>
                         ${isUnlocked ? '兑换' : '待解锁'}
                     </button>
                 `;
@@ -852,6 +949,23 @@
                 saveData();
                 updateUI();
             });
+        });
+
+        // 奖励商店模态框的显示和隐藏
+        rewardsBtn.addEventListener('click', () => {
+            rewardsModal.style.display = 'flex';
+            renderRewards(); // 每次打开都重新渲染以确保数据最新
+        });
+
+        rewardsModalCloseBtn.addEventListener('click', () => {
+            rewardsModal.style.display = 'none';
+        });
+
+        // 点击模态框背景关闭
+        rewardsModal.addEventListener('click', (event) => {
+            if (event.target === rewardsModal) {
+                rewardsModal.style.display = 'none';
+            }
         });
 
         rewardsGrid.addEventListener('click', (event) => {
@@ -884,21 +998,9 @@
                 document.getElementById(`${targetTab}-tab`).classList.add('active');
             });
         });
-        
-        // 新增：扣分项目展开/收起功能
-        toggleDeductionsBtn.addEventListener('click', () => {
-            const isExpanded = deductionSection.classList.toggle('expanded');
-            if (isExpanded) {
-                toggleText.textContent = '收起';
-                toggleIcon.textContent = '▲';
-            } else {
-                toggleText.textContent = '展开更多';
-                toggleIcon.textContent = '▼';
-            }
-        });
 
         /**
-         * 新增: 触发烟花效果的函数
+         * 触发烟花效果的函数
          * @param {HTMLElement} element - 触发动画的元素
          */
         function animateFireworks(element) {
